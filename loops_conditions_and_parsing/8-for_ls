@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+for file in *    # loops through non-hidden files only
+do
+    echo "${file#*-}"   # prints text after the first dash
+done
