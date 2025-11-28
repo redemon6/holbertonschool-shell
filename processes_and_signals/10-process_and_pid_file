@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 # Purpose: Demonstrate PID file creation and signal handling
 
-# Use /tmp instead of /var/run for non-root users
-PIDFILE="/tmp/myscript.pid"
-
-# Create PID file
-echo $$ > "$PIDFILE"
+# Use /tmp instead of /var/run for non-root use
+echo $$ > /var/run/myscript.pid
 
 # Define signal handlers
 term_handler() {
