@@ -1,0 +1,4 @@
+#!/bin/bash
+# Display lines with bash from the previous process listing
+# shellcheck disable=SC2009
+ps auxf | grep bash
