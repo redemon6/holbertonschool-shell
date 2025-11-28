@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
-# Purpose: Manage the manage_my_process script using start, stop, restart
+# Purpose: Init-style script to manage manage_my_process
 
+# PID file location
 PIDFILE="/var/run/my_process.pid"
-SCRIPT_PATH="/full/path/to/manage_my_process"   # <- replace with the absolute path
+
+# Absolute path to the managed script
+SCRIPT_PATH="/full/path/to/manage_my_process"   # <-- Replace with actual path
 
 start() {
-    "$SCRIPT_PATH" &                 # Start in background
+    "$SCRIPT_PATH" &                 # Start process in background
     echo $! > "$PIDFILE"             # Save PID to file
     echo "manage_my_process started"
 }
@@ -24,7 +27,6 @@ restart() {
     start > /dev/null 2>&1
     echo "manage_my_process restarted"
 }
-
 
 # Main logic
 case "$1" in
