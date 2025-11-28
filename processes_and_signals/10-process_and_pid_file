@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Purpose: Demonstrate PID file creation and signal handling
+
+#  Create PID file
+PIDFILE="/var/run/myscript.pid"
+echo $$ > "$PIDFILE"
+
+# Define signal handlers
+# SIGTERM: print message
+term_handler() {
+    echo "I hate the kill command"
+}
+
+# SIGINT: print message
+int_handler() {
+    echo "Y U no love me?!"
+}
+
+# SIGQUIT or SIGTERM: cleanup and exit
+quit_handler() {
+    [ -f "$PIDFILE" ] && rm -f "$PIDFILE"
+    exit 0
+}
+
+# Set traps
+trap term_handler SIGTERM
+trap int_handler SIGINT
+trap quit_handler SIGQUIT SIGTERM
+
+# Infinite loop
+while true; do
+    echo "To infinity and beyond"
+    sleep 2
+done
+
