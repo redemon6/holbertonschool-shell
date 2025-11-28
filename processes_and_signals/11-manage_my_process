@@ -2,7 +2,7 @@
 # Purpose: Manage the manage_my_process script using start, stop, restart
 
 PIDFILE="/var/run/my_process.pid"
-SCRIPT_PATH="/full/path/to/manage_my_process"   # <- replace with the actual path
+SCRIPT_PATH="/full/path/to/manage_my_process"   # <- replace with the absolute path
 
 start() {
     "$SCRIPT_PATH" &                 # Start in background
@@ -15,10 +15,8 @@ stop() {
         PID=$(cat "$PIDFILE")
         kill "$PID" 2>/dev/null
         rm -f "$PIDFILE"
-        echo "manage_my_process stopped"
-    else
-        echo "manage_my_process is not running"
     fi
+    echo "manage_my_process stopped"
 }
 
 restart() {
@@ -43,3 +41,4 @@ case "$1" in
         exit 1
         ;;
 esac
+
