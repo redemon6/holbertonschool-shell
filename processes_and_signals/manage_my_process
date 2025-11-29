@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
-# Purpose: Dummy process that writes "I am alive!" every 2 seconds
-
-while true; do
-    echo "I am alive!" >> /tmp/my_process
-    sleep 2
-done
+#!/usr/bin/env bash 
+#this is script
+setsid "$0" >/dev/null 2>&1 < /dev/null &
+while true;do
+echo "I am alive!" > /tmp/my_process
+sleep 2i
+done 

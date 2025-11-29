@@ -1,34 +1,28 @@
-#!/usr/bin/env bash
-# Purpose: Init-style script to manage manage_my_process
+#!/bin/bash
 
-# PID file location
-PIDFILE="/var/run/my_process.pid"
-
-# Absolute path to the managed script
-SCRIPT_PATH="/full/path/to/manage_my_process"   # <-- Replace with actual path
+pid_file="/var/run/my_process.pid"
+process="./manage_my_process"
 
 start() {
-    "$SCRIPT_PATH" &                 # Start process in background
-    echo $! > "$PIDFILE"             # Save PID to file
+    $process &
+    echo $! > "$pid_file"
     echo "manage_my_process started"
 }
 
 stop() {
-    if [ -f "$PIDFILE" ]; then
-        PID=$(cat "$PIDFILE")
-        kill "$PID" 2>/dev/null
-        rm -f "$PIDFILE"
+    if [ -f "$pid_file" ]; then
+        kill "$(cat "$pid_file")" 2>/dev/null
+        rm -f "$pid_file"
+        echo "manage_my_process stopped"
     fi
-    echo "manage_my_process stopped"
 }
 
 restart() {
-    stop > /dev/null 2>&1
-    start > /dev/null 2>&1
+    stop
+    start
     echo "manage_my_process restarted"
 }
 
-# Main logic
 case "$1" in
     start)
         start
@@ -44,4 +38,3 @@ case "$1" in
         exit 1
         ;;
 esac
-
