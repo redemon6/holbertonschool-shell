@@ -19,7 +19,12 @@ stop() {
 }
 
 restart() {
-    stop
+    # Do not print "stopped" while restarting → silence stop()
+    if [ -f "$PIDFILE" ]; then
+        kill "$(cat "$PIDFILE")" 2>/dev/null
+        rm -f "$PIDFILE"
+    fi
+
     "$PROCESS" &
     echo $! > "$PIDFILE"
     echo "manage_my_process restarted"
