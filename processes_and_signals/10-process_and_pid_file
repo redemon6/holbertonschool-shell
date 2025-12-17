@@ -3,11 +3,10 @@
 
 PID_FILE="/var/run/myscript.pid"
 
-# Create PID file (works without root shell)
-echo "$$" | sudo tee "$PID_FILE" > /dev/null
+echo "$$" > "$PID_FILE"
 
 cleanup() {
-    sudo rm -f "$PID_FILE"
+    rm -f "$PID_FILE"
     exit 0
 }
 
